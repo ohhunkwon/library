@@ -1,4 +1,5 @@
 const form = document.getElementById("form")
+const library = document.querySelector('.library')
 
 let myLibrary = []
 
@@ -32,7 +33,30 @@ function addBookToLibrary(form) {
         alert("This book is already in your library!")
     } else {
         myLibrary.push(newBook)
+        displayLibrary()
     }
+}
+
+function displayLibrary() {
+    const card = document.createElement('div')
+    card.classList.add('card')
+
+    const img = document.createElement('i')
+    img.classList.add('fas', 'fa-book', 'fa-10x')
+
+    const cardContainer = document.createElement('div')
+    cardContainer.classList.add('card-container')
+
+    library.appendChild(card)
+    card.appendChild(img)
+    card.appendChild(cardContainer)
+
+    myLibrary.forEach(book => {
+        if (cardContainer.textContent.includes(book.title)) {
+            return
+        }
+        cardContainer.textContent = book.info()
+    })
 }
 
 form.addEventListener('submit', addBookToLibrary)
