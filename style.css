@@ -1,5 +1,5 @@
 body {
-  background-color: #cdf0ea;
+  background-color: #EDEDED;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   margin: 0;
 }
@@ -17,9 +17,14 @@ header {
   display: flex;
 }
 
-#form {
+h3{
   padding: 20px;
-  margin: 50px;
+  margin: 20px;
+}
+
+#form {
+  padding: 0 20px;
+  margin: 0 20px;
 }
 
 .library {
@@ -34,8 +39,9 @@ header {
   width: 200px;
   text-align: center;
   padding: 20px;
-  margin: 20px;
-  background-color: #c490e4;
+  margin: 40px;
+  background-color: #444444;
+  color: white;
 }
 
 .card:hover {

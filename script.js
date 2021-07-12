@@ -33,11 +33,11 @@ function addBookToLibrary(form) {
         alert("This book is already in your library!")
     } else {
         myLibrary.push(newBook)
-        displayLibrary()
+        displayLibrary(newBook)
     }
 }
 
-function displayLibrary() {
+function displayLibrary(newBook) {
     const card = document.createElement('div')
     card.classList.add('card')
 
@@ -47,9 +47,14 @@ function displayLibrary() {
     const cardContainer = document.createElement('div')
     cardContainer.classList.add('card-container')
 
+    const removeBtn = document.createElement('button')
+    removeBtn.dataset.book = myLibrary.indexOf(newBook)
+    removeBtn.textContent = 'Remove'
+
     library.appendChild(card)
     card.appendChild(img)
     card.appendChild(cardContainer)
+    card.appendChild(removeBtn)
 
     myLibrary.forEach(book => {
         if (cardContainer.textContent.includes(book.title)) {
@@ -59,5 +64,13 @@ function displayLibrary() {
     })
 }
 
-form.addEventListener('submit', addBookToLibrary)
+function removeBook(e) {
+    if (e.target.dataset.book) {
+        const index = [...e.target.parentElement.parentElement.childNodes].indexOf(e.target.parentElement)
+        myLibrary.splice(index, 1)
+        library.removeChild(e.target.parentElement)
+    }
+}
 
+form.addEventListener('submit', addBookToLibrary)
+library.addEventListener('click', removeBook)
