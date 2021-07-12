@@ -15,7 +15,7 @@ function Book(title, author, pages, read) {
         } else {
             readStatus = 'not read yet'
         }
-        return `${title} by ${author}, ${pages} pages, ${readStatus}`
+        return `${title} by ${author}, ${pages} pages`
     }
 }
 
@@ -51,17 +51,24 @@ function displayLibrary(newBook) {
     removeBtn.dataset.book = myLibrary.indexOf(newBook)
     removeBtn.textContent = 'Remove'
 
+    const toggleBtn = document.createElement('button')
+    toggleBtn.classList.add('toggleBtn')
+    let readStatus
+    if (newBook.read) {
+        readStatus = 'Read'
+    } else {
+        readStatus = 'Not Read'
+    }
+    toggleBtn.textContent = readStatus
+
     library.appendChild(card)
     card.appendChild(img)
     card.appendChild(cardContainer)
     card.appendChild(removeBtn)
+    card.appendChild(toggleBtn)
 
-    myLibrary.forEach(book => {
-        if (cardContainer.textContent.includes(book.title)) {
-            return
-        }
-        cardContainer.textContent = book.info()
-    })
+    cardContainer.textContent = newBook.info()
+    
 }
 
 function removeBook(e) {
@@ -72,5 +79,19 @@ function removeBook(e) {
     }
 }
 
+function toggleRead(e) {
+    if (e.target.classList.contains('toggleBtn')) {
+        const index = [...e.target.parentElement.parentElement.childNodes].indexOf(e.target.parentElement)
+        myLibrary[index].read = !myLibrary[index].read
+
+        if (e.target.textContent === 'Read') {
+            e.target.textContent = 'Not Read'
+        } else {
+            e.target.textContent = 'Read'
+        }
+    }
+}
+
 form.addEventListener('submit', addBookToLibrary)
 library.addEventListener('click', removeBook)
+library.addEventListener('click', toggleRead)
