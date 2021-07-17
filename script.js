@@ -3,21 +3,39 @@ const library = document.querySelector('.library')
 
 let myLibrary = []
 
-function Book(title, author, pages, read) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
-    this.info = () => {
-        let readStatus
-        if (this.read) {
-            readStatus = 'finished'
-        } else {
-            readStatus = 'not read yet'
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.read = read
+        this.info = () => {
+            let readStatus
+            if (this.read) {
+                readStatus = 'finished'
+            } else {
+                readStatus = 'not read yet'
+            }
+            return `${title} by ${author}, ${pages} pages`
         }
-        return `${title} by ${author}, ${pages} pages`
     }
 }
+
+// function Book(title, author, pages, read) {
+//     this.title = title
+//     this.author = author
+//     this.pages = pages
+//     this.read = read
+//     this.info = () => {
+//         let readStatus
+//         if (this.read) {
+//             readStatus = 'finished'
+//         } else {
+//             readStatus = 'not read yet'
+//         }
+//         return `${title} by ${author}, ${pages} pages`
+//     }
+// }
 
 function addBookToLibrary(form) {
     form.preventDefault()
@@ -68,7 +86,7 @@ function displayLibrary(newBook) {
     card.appendChild(toggleBtn)
 
     cardContainer.textContent = newBook.info()
-    
+
 }
 
 function removeBook(e) {
